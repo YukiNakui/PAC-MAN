@@ -1,17 +1,13 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include"Engine/CsvReader.h"
-
-class Stage :
+class Player :
     public GameObject
 {
-	CsvReader csv;
-	int hFloor_;
-	int hWall_;
+	int hPlayer_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	Stage(GameObject* parent);
+	Player(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
@@ -24,5 +20,9 @@ public:
 
 	//開放
 	void Release() override;
+
+	//何かに当たった
+   //引数：pTarget 当たった相手
+	void OnCollision(GameObject* pTarget) override;
 };
 
