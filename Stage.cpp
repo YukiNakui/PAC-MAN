@@ -30,7 +30,7 @@ Stage::Stage(GameObject* parent)
 	:GameObject(parent,"Stage")
 {
 	CsvReader csv;
-	csv.Load("stage.csv");
+	csv.Load("stage3.csv");
 	int w = csv.GetWidth();    //１行に何個データがあるか
 	int h = csv.GetHeight();   //データが何行あるか
 
