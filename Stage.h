@@ -5,13 +5,22 @@
 
 using std::vector;
 
+enum STAGE_OBJ {
+	FLOOR,
+	WALL,
+};
+
 class Stage :
     public GameObject
 {
 	vector<vector<int>> stageData_;
 	int hFloor_;
 	int hWall_;
+	int stageWidth_, stageHeight_;
 public:
+	int GetStageWidth() { return stageWidth_; }
+	int GetStageHeight() { return stageHeight_; }
+	bool IsWall(int _x, int _y);//privateにあるステージデータの中身を聞くための関数
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
 	Stage(GameObject* parent);

@@ -4,45 +4,56 @@
 #include"Engine/Input.h"
 #include"Engine/CsvReader.h"
 
-const int STAGE_X{ 15 };
-const int STAGE_Y{ 15 };
+namespace {
+	/*const int STAGE_X{ 15 };
+	const int STAGE_Y{ 15 };*/
+	//int stage[STAGE_X][STAGE_Y]
+	//{
+	//	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	//	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+	//};
+}
 
-//int stage[STAGE_X][STAGE_Y]
-//{
-//	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-//};
+bool Stage::IsWall(int _x, int _y)
+{
+	assert(stageData_[_y][_x]>=-1);//_x,_yno hairetu
+	if (stageData_[_y][_x]==STAGE_OBJ::WALL)
+		return true;
+	else
+		return false;
+}
 
 Stage::Stage(GameObject* parent)
 	:GameObject(parent,"Stage")
 {
 	CsvReader csv;
-	csv.Load("stage3.csv");
-	int w = csv.GetWidth();    //１行に何個データがあるか
-	int h = csv.GetHeight();   //データが何行あるか
+	csv.Load("stage.csv");
 
-	for (int i = 0; i < STAGE_Y; i++)
+	stageWidth_ = csv.GetWidth();    //１行に何個データがあるか
+	stageHeight_ = csv.GetHeight();   //データが何行あるか
+
+	for (int i = 0; i < stageWidth_; i++)
 	{
-		vector<int> sdata(STAGE_X, 0);//15の配列を0で初期化
+		vector<int> sdata(stageHeight_, 0);//15の配列を0で初期化
 		stageData_.push_back(sdata);
 	}
 
-	for (int j = 0; j < STAGE_Y; j++)
+	for (int j = 0; j < stageWidth_; j++)
 	{
-		for (int i = 0; i < STAGE_X; i++)
+		for (int i = 0; i < stageHeight_; i++)
 		{
 			stageData_[j][i] = csv.GetValue(i, j);
 		}
@@ -81,18 +92,18 @@ void Stage::Draw()
 	//	}
 	//}
 
-	for (int j = 0; j < STAGE_Y; j++)
+	for (int j = 0; j < stageWidth_; j++)
 	{
-		for (int i = 0; i < STAGE_X; i++)
+		for (int i = 0; i < stageHeight_; i++)
 		{
-			floorTrans.position_ = { (float)j,0, (float)i};
-			wallTrans.position_ = { (float)j,0, (float)i};
+			floorTrans.position_ = { (float)j,0, (float)(14-i)};
+			wallTrans.position_ = { (float)j,0, (float)(14-i)};
 			if (stageData_[j][i] == 1)
 			{
 				Model::SetTransform(hWall_, wallTrans);
 				Model::Draw(hWall_);
 			}
-			if (stageData_[j][i] == 0)
+			else
 			{
 				Model::SetTransform(hFloor_, floorTrans);
 				Model::Draw(hFloor_);
@@ -105,4 +116,9 @@ void Stage::Draw()
 
 void Stage::Release()
 {
+	for (int i = 0; i < stageWidth_; i++)
+	{
+		stageData_[i].clear();
+	}
+	stageData_.clear();
 }

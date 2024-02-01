@@ -3,6 +3,7 @@
 #include"Engine/Camera.h"
 #include"Engine/Input.h"
 #include"Engine/Debug.h"
+#include"Stage.h"
 
 namespace
 {
@@ -10,7 +11,7 @@ namespace
 }
 
 Player::Player(GameObject* parent)
-	:GameObject(parent,"Player"),hPlayer_(-1),speed_(PLAYER_MOVE_SPEED)
+	:GameObject(parent,"Player"),hPlayer_(-1),speed_(PLAYER_MOVE_SPEED),pStage_(nullptr)
 {
 }
 
@@ -23,7 +24,7 @@ void Player::Initialize()
 	Camera::SetTarget(XMFLOAT3(6.5, 0, 5.5));
 	transform_.position_.x = 0.5;
 	transform_.position_.z = 1.5;
-	//map[13][1]が、(map[y][x]の場合の)初期位置
+	pStage_ = (Stage*)FindObject("Stage");//基底クラスから派生クラスへ -> ダウンキャスト
 }
 
 void Player::Update()
@@ -65,12 +66,33 @@ void Player::Update()
 		//moveDir = Dir::DOWN;
 		//transform_.rotate_.y = 180.0f;
 	}
+
 	XMVECTOR pos = XMLoadFloat3(&(transform_.position_));
-	pos = pos + speed_ * move;
-	Debug::Log("(X,Y)=");
+	//pos = pos + speed_ * move;
+	XMVECTOR posTmp = XMVectorZero();//ゼロベクトルで初期化
+	posTmp = pos + speed_ * move;
+
+	int tx, ty;
+	tx = (int)(XMVectorGetX(pos) + 0.5);
+	ty = pStage_->GetStageWidth() - (int)(XMVectorGetZ(pos) + 0.5); //配列のインデックス
+	//仮に配列をmap[][]とする
+	//移動先がフロア(STAGE_OBJ::FLOOR => 0)だったら動く
+	if (!(pStage_->IsWall(tx,ty))) {
+		pos = posTmp;
+	}
+	/*Debug::Log("(X,Z)=");
 	Debug::Log(XMVectorGetX(pos));
 	Debug::Log(",");
-	Debug::Log(XMVectorGetZ(pos),true);
+	Debug::Log(XMVectorGetZ(pos),true);*/
+	
+	Debug::Log("(iX,iZ)=");
+	Debug::Log(tx);
+	Debug::Log(",");
+	Debug::Log(ty);
+	Debug::Log(":");
+	Debug::Log(pStage_->IsWall(tx, ty),true);
+
+
 	if(!XMVector3Equal(move,XMVectorZero())) {
 		XMStoreFloat3(&(transform_.position_), pos);
 
@@ -88,11 +110,6 @@ void Player::Update()
 	}
 	//float rotAngle[5]{ 90,-90,0,180,0 };
 	//transform_.rotate_.y = rotAngle[moveDir];
-	
-	int xOfMap = transform_.position_.x + 0.5;
-	int yOfMap = transform_.position_.z - 0.5;
-
-
 }
 
 void Player::Draw()
