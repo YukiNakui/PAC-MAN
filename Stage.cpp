@@ -29,7 +29,7 @@ namespace {
 
 bool Stage::IsWall(int _x, int _y)
 {
-	assert(stageData_[_y][_x]>=-1);//_x,_yno hairetu
+	assert(stageData_[_y][_x]>=-1);//_x,_yの配列の位置が配列の外側ならエラー
 	if (stageData_[_y][_x]==STAGE_OBJ::WALL)
 		return true;
 	else
@@ -40,7 +40,7 @@ Stage::Stage(GameObject* parent)
 	:GameObject(parent,"Stage")
 {
 	CsvReader csv;
-	csv.Load("stage.csv");
+	csv.Load("stage2.csv");
 
 	stageWidth_ = csv.GetWidth();    //１行に何個データがあるか
 	stageHeight_ = csv.GetHeight();   //データが何行あるか
@@ -96,8 +96,8 @@ void Stage::Draw()
 	{
 		for (int i = 0; i < stageHeight_; i++)
 		{
-			floorTrans.position_ = { (float)j,0, (float)(14-i)};
-			wallTrans.position_ = { (float)j,0, (float)(14-i)};
+			floorTrans.position_ = { (float)i,0, (float)(14-j)};
+			wallTrans.position_ = { (float)i,0, (float)(14-j)};
 			if (stageData_[j][i] == 1)
 			{
 				Model::SetTransform(hWall_, wallTrans);

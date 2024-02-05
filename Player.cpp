@@ -73,8 +73,9 @@ void Player::Update()
 	posTmp = pos + speed_ * move;
 
 	int tx, ty;
-	tx = (int)(XMVectorGetX(pos) + 0.5);
-	ty = pStage_->GetStageWidth() - (int)(XMVectorGetZ(pos) + 0.5); //配列のインデックス
+	//床の配列のひとつ目を左上の座標(0,0,1)の位置にあるとする
+	tx = (int)(XMVectorGetX(posTmp) + 1.0f);//1足しているのは床のオブジェクトの左上が座標(-1,0,0)の位置にあるから
+	ty = pStage_->GetStageWidth() - (int)(XMVectorGetZ(posTmp) + 1.0f); //配列のインデックス
 	//仮に配列をmap[][]とする
 	//移動先がフロア(STAGE_OBJ::FLOOR => 0)だったら動く
 	if (!(pStage_->IsWall(tx,ty))) {
