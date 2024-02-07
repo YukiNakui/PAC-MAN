@@ -108,6 +108,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Gauge.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -187,6 +190,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Gauge.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>

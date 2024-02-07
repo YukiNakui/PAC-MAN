@@ -9,6 +9,8 @@ class Player :
 	int hPlayer_;
 	float speed_;
 	Stage* pStage_;
+	int hpMax_;//saidaiHP
+	int hpCrr_;//gennzainoHP
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
