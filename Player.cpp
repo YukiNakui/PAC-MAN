@@ -101,7 +101,7 @@ void Player::Update()
 	Debug::Log(ty);
 	Debug::Log(":");
 	Debug::Log(pStage_->IsWall(tx, ty),true);*/
-
+	float angleTmp;
 
 	if(!XMVector3Equal(move,XMVectorZero())) {
 		XMStoreFloat3(&(transform_.position_), pos);
@@ -127,7 +127,15 @@ void Player::Update()
 			angle *= -1;
 		}*/
 		
-		transform_.rotate_.y = XMConvertToDegrees(-angle);
+
+
+		if (!(transform_.rotate_.y == XMConvertToDegrees(-angle))) {
+			if (XMConvertToDegrees(-angle) >= 0)
+				transform_.rotate_.y += 9.0f;
+			else
+				transform_.rotate_.y -= 9.0f;
+		}
+		//transform_.rotate_.y = XMConvertToDegrees(-angle);
 	}
 	//float rotAngle[5]{ 90,-90,0,180,0 };
 	//transform_.rotate_.y = rotAngle[moveDir];
