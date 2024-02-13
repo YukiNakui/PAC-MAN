@@ -3,6 +3,7 @@
 #include"Engine/Camera.h"
 #include"Engine/Input.h"
 #include"Engine/CsvReader.h"
+#include"Feed.h"
 
 namespace {
 	/*const int STAGE_X{ 15 };
@@ -58,6 +59,7 @@ Stage::Stage(GameObject* parent)
 			stageData_[j][i] = csv.GetValue(i, j);
 		}
 	}
+	Instantiate<Feed>(this);
 }
 
 void Stage::Initialize()

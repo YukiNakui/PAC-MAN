@@ -129,13 +129,13 @@ void Player::Update()
 		
 
 
-		if (!(transform_.rotate_.y == XMConvertToDegrees(-angle))) {
+		/*if (!(transform_.rotate_.y == XMConvertToDegrees(-angle))) {
 			if (XMConvertToDegrees(-angle) >= 0)
 				transform_.rotate_.y += 9.0f;
 			else
 				transform_.rotate_.y -= 9.0f;
-		}
-		//transform_.rotate_.y = XMConvertToDegrees(-angle);
+		}*/
+		transform_.rotate_.y = XMConvertToDegrees(-angle);
 	}
 	//float rotAngle[5]{ 90,-90,0,180,0 };
 	//transform_.rotate_.y = rotAngle[moveDir];

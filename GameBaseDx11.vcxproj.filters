@@ -114,6 +114,12 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Feed.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -199,6 +205,12 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Feed.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
