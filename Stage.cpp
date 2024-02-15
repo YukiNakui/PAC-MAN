@@ -59,7 +59,7 @@ Stage::Stage(GameObject* parent)
 			stageData_[j][i] = csv.GetValue(i, j);
 		}
 	}
-	Instantiate<Feed>(this);
+	//Instantiate<Feed>(this);
 }
 
 void Stage::Initialize()

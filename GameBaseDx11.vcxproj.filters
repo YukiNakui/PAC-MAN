@@ -120,6 +120,9 @@
     <ClCompile Include="Feed.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="GameoverScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -211,6 +214,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Feed.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameoverScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>

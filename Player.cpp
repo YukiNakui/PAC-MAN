@@ -3,6 +3,7 @@
 #include"Engine/Camera.h"
 #include"Engine/Input.h"
 #include"Engine/Debug.h"
+#include"Engine/SceneManager.h"
 #include"Stage.h"
 #include"Gauge.h"
 
@@ -87,8 +88,11 @@ void Player::Update()
 	else
 	{
 		hpCrr_ = hpCrr_ - 2;
-		if (hpCrr_ < 0)
+		if (hpCrr_ < 0) {
 			hpCrr_ = 0;
+			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+			pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+		}
 	}
 	/*Debug::Log("(X,Z)=");
 	Debug::Log(XMVectorGetX(pos));
